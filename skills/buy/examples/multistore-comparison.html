@@ -1,0 +1,1835 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Сравнение готового обеда и продуктов для домашней готовки на двоих во ВкусВилле, Яндекс Лавке, Пятёрочке, Магните и Ozon Fresh.">
+  <title>Один обед — готовый или приготовить дома</title>
+  <style>
+    :root {
+      --ink: #17312b;
+      --muted: #65756f;
+      --paper: #f5f2e9;
+      --card: #fffdf7;
+      --line: rgba(23, 49, 43, .12);
+      --green: #167d5a;
+      --green-dark: #0b513a;
+      --lime: #dfff83;
+      --shadow: 0 18px 54px rgba(45, 66, 58, .09);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 3%, rgba(223, 255, 131, .58), transparent 28rem),
+        radial-gradient(circle at 92% 31%, rgba(255, 214, 0, .18), transparent 23rem),
+        var(--paper);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    button, input, select { font: inherit; }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .shell {
+      width: min(1220px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 610px;
+      padding: 28px 0 46px;
+      color: white;
+      background:
+        linear-gradient(125deg, rgba(3, 54, 39, .96), rgba(16, 125, 88, .91)),
+        #0b513a;
+      border-radius: 0 0 48px 48px;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 520px;
+      height: 520px;
+      top: -270px;
+      right: -100px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      box-shadow: inset 0 0 0 54px rgba(255, 255, 255, .025), inset 0 0 0 108px rgba(255, 255, 255, .02);
+    }
+
+    .hero::after {
+      width: 260px;
+      height: 260px;
+      left: -115px;
+      bottom: -110px;
+      background: var(--lime);
+      opacity: .12;
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 76px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      color: var(--green-dark);
+      background: var(--lime);
+      border-radius: 14px;
+      transform: rotate(-4deg);
+      font-size: 21px;
+    }
+
+    .snapshot {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 14px;
+      color: rgba(255, 255, 255, .88);
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .snapshot-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--lime);
+      border-radius: 50%;
+      box-shadow: 0 0 0 5px rgba(223, 255, 131, .12);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(320px, .7fr);
+      align-items: end;
+      gap: 64px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 18px;
+      color: var(--lime);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 800px;
+      margin: 0;
+      font-size: clamp(50px, 7vw, 92px);
+      line-height: .92;
+      letter-spacing: -.065em;
+    }
+
+    .hero-copy {
+      max-width: 660px;
+      margin: 26px 0 0;
+      color: rgba(255, 255, 255, .76);
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.5;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 48px;
+      padding: 0 18px;
+      border: 0;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 850;
+      text-decoration: none;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+
+    .button-primary {
+      color: var(--green-dark);
+      background: var(--lime);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, .16);
+    }
+
+    .button-ghost {
+      color: white;
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .19);
+    }
+
+    .hero-panel {
+      padding: 24px;
+      color: var(--ink);
+      background: rgba(255, 253, 247, .97);
+      border: 1px solid rgba(255, 255, 255, .45);
+      border-radius: 28px;
+      box-shadow: 0 24px 70px rgba(1, 26, 18, .28);
+      transform: rotate(1.2deg);
+    }
+
+    .hero-panel-kicker {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .hero-price {
+      margin: 0;
+      font-size: clamp(48px, 5vw, 68px);
+      font-weight: 950;
+      line-height: 1;
+      letter-spacing: -.055em;
+    }
+
+    .hero-price small {
+      font-size: 20px;
+      letter-spacing: -.02em;
+    }
+
+    .hero-price-caption {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero-basket {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .hero-basket span {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 48px;
+      padding: 10px 12px;
+      background: #eff4eb;
+      border-radius: 13px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    main { padding: 66px 0 80px; }
+
+    .section { margin-top: 74px; }
+    .section:first-child { margin-top: 0; }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 24px;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1;
+      letter-spacing: -.05em;
+    }
+
+    .section-lead {
+      max-width: 550px;
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 14px;
+      margin: -30px auto 0;
+      position: relative;
+      z-index: 3;
+    }
+
+    .metric {
+      min-height: 128px;
+      padding: 22px;
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, .8);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric-featured {
+      color: white;
+      background: var(--ink);
+    }
+
+    .metric-label {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .metric-featured .metric-label { color: rgba(255, 255, 255, .58); }
+
+    .metric strong {
+      display: block;
+      font-size: clamp(27px, 3vw, 38px);
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .metric p {
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .metric-featured p { color: rgba(255, 255, 255, .66); }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      gap: 18px;
+      padding: 26px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .price-ladder { display: grid; gap: 16px; }
+
+    .ladder-row {
+      display: grid;
+      grid-template-columns: 132px minmax(120px, 1fr) 90px;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .ladder-label {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      gap: 9px;
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .ladder-label span:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .mini-logo {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 30px;
+      height: 30px;
+      color: white;
+      background: var(--store-color);
+      border-radius: 9px;
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .ladder-track {
+      overflow: hidden;
+      height: 18px;
+      background: #eceee8;
+      border-radius: 999px;
+    }
+
+    .ladder-fill {
+      height: 100%;
+      min-width: 24px;
+      background: var(--store-color);
+      border-radius: inherit;
+      transform-origin: left;
+      animation: grow .75s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    @keyframes grow { from { transform: scaleX(.08); } to { transform: scaleX(1); } }
+
+    .ladder-price {
+      text-align: right;
+      font-size: 15px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .comparison-note {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 20px;
+      color: white;
+      background: var(--green-dark);
+      border-radius: 22px;
+    }
+
+    .comparison-note strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 24px;
+      letter-spacing: -.035em;
+    }
+
+    .comparison-note p {
+      margin: 0;
+      color: rgba(255, 255, 255, .7);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .comparison-note .button {
+      width: 100%;
+      min-height: 44px;
+      color: var(--green-dark);
+      background: var(--lime);
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .filter {
+      min-height: 42px;
+      padding: 0 15px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, .58);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .filter[aria-pressed="true"] {
+      color: white;
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .select-wrap {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 0 14px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 13px;
+    }
+
+    .select-wrap span { color: var(--muted); font-size: 13px; font-weight: 700; }
+
+    select {
+      min-height: 42px;
+      color: var(--ink);
+      background: transparent;
+      border: 0;
+      outline: 0;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .store-card {
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 9px 30px rgba(38, 57, 50, .06);
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+
+    .store-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 42px rgba(38, 57, 50, .11);
+    }
+
+    .store-card.best {
+      border-color: color-mix(in srgb, var(--store-color), transparent 52%);
+      box-shadow: 0 18px 46px color-mix(in srgb, var(--store-color), transparent 88%);
+    }
+
+    .store-card::before {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      top: -132px;
+      right: -75px;
+      background: var(--store-color);
+      border-radius: 50%;
+      opacity: .08;
+    }
+
+    .store-top {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .store-id {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      gap: 13px;
+    }
+
+    .store-logo {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 52px;
+      height: 52px;
+      color: var(--logo-ink, white);
+      background: var(--store-color);
+      border-radius: 17px;
+      font-size: 17px;
+      font-weight: 950;
+      letter-spacing: -.03em;
+      box-shadow: inset 0 -9px 18px rgba(0, 0, 0, .08);
+    }
+
+    .store-name {
+      margin: 0;
+      font-size: 23px;
+      line-height: 1.1;
+      letter-spacing: -.035em;
+    }
+
+    .store-caption {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .rank {
+      flex: 0 0 auto;
+      padding: 7px 10px;
+      color: var(--ink);
+      background: #eef0e9;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .rank-best {
+      color: var(--green-dark);
+      background: var(--lime);
+    }
+
+    .store-price-row {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 25px 0 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .store-price {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 0;
+      font-size: 42px;
+      font-weight: 950;
+      line-height: 1;
+      letter-spacing: -.055em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .store-price .cook-inline {
+      color: var(--green);
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -.02em;
+      white-space: nowrap;
+    }
+
+    .store-price-label { margin-top: 6px; color: var(--muted); font-size: 12px; }
+
+    .saving { text-align: right; color: var(--green); font-size: 12px; font-weight: 850; }
+    .saving strong { display: block; margin-top: 3px; font-size: 19px; }
+
+    .basket-list { display: grid; gap: 4px; }
+
+    .basket-item {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 11px;
+      min-height: 67px;
+      padding: 9px 8px;
+      border-radius: 13px;
+      text-decoration: none;
+      transition: background .18s ease;
+    }
+
+    .basket-item:hover { background: #f0f2eb; }
+
+    .item-icon {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      background: #eff2ea;
+      border-radius: 12px;
+      font-size: 17px;
+    }
+
+    .item-name {
+      display: block;
+      overflow: hidden;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.25;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .item-meta {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .item-total {
+      text-align: right;
+      font-size: 13px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .store-open {
+      color: white;
+      background: var(--store-color);
+    }
+
+    .copy-button {
+      width: 48px;
+      min-height: 48px;
+      padding: 0;
+      color: var(--ink);
+      background: #eef0e9;
+      border: 0;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .location-note {
+      display: flex;
+      gap: 8px;
+      margin: 15px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    .store-cashback {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 11px;
+      margin: -4px 0 16px;
+      padding: 11px 12px;
+      color: #1b1b18;
+      background: #fff2a8;
+      border: 1px solid rgba(86, 72, 0, .12);
+      border-radius: 14px;
+    }
+
+    .store-cashback.none {
+      color: var(--muted);
+      background: #f0f2eb;
+      border-color: transparent;
+    }
+
+    .tbank-mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      color: #111;
+      background: #ffdd2d;
+      border-radius: 11px;
+      font-size: 14px;
+      font-weight: 950;
+    }
+
+    .store-cashback strong { display: block; font-size: 12px; }
+    .store-cashback small { display: block; margin-top: 3px; color: #716b4c; font-size: 10px; line-height: 1.3; }
+    .store-cashback.none small { color: var(--muted); }
+    .store-cashback a { font-size: 11px; font-weight: 900; text-underline-offset: 3px; }
+
+    .cook-board {
+      display: grid;
+      grid-template-columns: minmax(280px, .74fr) minmax(0, 1.26fr);
+      gap: 14px;
+      margin-bottom: 18px;
+      padding: 14px;
+      color: white;
+      background: var(--ink);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .recipe-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 310px;
+      padding: 25px;
+      color: var(--green-dark);
+      background: var(--lime);
+      border-radius: 24px;
+    }
+
+    .recipe-kicker {
+      margin: 0 0 18px;
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .recipe-card h3 {
+      max-width: 360px;
+      margin: 0;
+      font-size: clamp(30px, 4vw, 45px);
+      line-height: .98;
+      letter-spacing: -.05em;
+    }
+
+    .recipe-card > p:not(.recipe-kicker) {
+      margin: 18px 0 0;
+      color: rgba(11, 81, 58, .73);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .recipe-facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 24px;
+    }
+
+    .recipe-fact {
+      padding: 12px;
+      background: rgba(255, 255, 255, .44);
+      border-radius: 13px;
+    }
+
+    .recipe-fact span { display: block; font-size: 9px; font-weight: 850; letter-spacing: .06em; text-transform: uppercase; }
+    .recipe-fact strong { display: block; margin-top: 5px; font-size: 15px; }
+
+    .cook-summary {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 24px;
+    }
+
+    .cook-summary-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .cook-summary-head h3 { margin: 0; font-size: 23px; letter-spacing: -.035em; }
+    .cook-summary-head p { max-width: 470px; margin: 7px 0 0; color: rgba(255, 255, 255, .62); font-size: 12px; line-height: 1.5; }
+
+    .cook-badge {
+      flex: 0 0 auto;
+      padding: 8px 11px;
+      color: var(--green-dark);
+      background: var(--lime);
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 950;
+    }
+
+    .cook-ladder { display: grid; gap: 11px; }
+
+    .cook-ladder .ladder-row {
+      grid-template-columns: 112px minmax(90px, 1fr) 76px;
+      gap: 10px;
+    }
+
+    .cook-ladder .ladder-track { height: 12px; background: rgba(255, 255, 255, .12); }
+    .cook-ladder .ladder-price { color: white; font-size: 13px; }
+    .cook-ladder .ladder-label { color: rgba(255, 255, 255, .86); font-size: 12px; }
+    .cook-ladder .mini-logo { width: 25px; height: 25px; border-radius: 8px; font-size: 9px; }
+
+    .cook-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .cook-card {
+      position: relative;
+      overflow: hidden;
+      padding: 23px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 9px 30px rgba(38, 57, 50, .06);
+    }
+
+    .cook-card.best { border: 2px solid var(--store-color); }
+
+    .cook-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cook-card .store-logo { width: 44px; height: 44px; border-radius: 14px; font-size: 14px; }
+    .cook-card .store-name { font-size: 20px; }
+
+    .cook-total { text-align: right; }
+    .cook-total strong { display: block; font-size: 27px; letter-spacing: -.045em; }
+    .cook-total span { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; }
+
+    .cook-items { display: grid; gap: 2px; margin-top: 12px; }
+
+    .cook-item {
+      display: grid;
+      grid-template-columns: 30px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      min-height: 53px;
+      padding: 6px;
+      border-radius: 11px;
+      text-decoration: none;
+    }
+
+    .cook-item:hover { background: #f0f2eb; }
+    .cook-item-icon { display: grid; place-items: center; width: 30px; height: 30px; background: #eff2ea; border-radius: 9px; font-size: 14px; }
+    .cook-item-name { display: block; font-size: 12px; font-weight: 850; line-height: 1.25; }
+    .cook-item-meta { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; }
+    .cook-item-price { font-size: 12px; font-weight: 900; font-variant-numeric: tabular-nums; }
+
+    .cook-card-note {
+      margin: 14px 0 0;
+      padding: 11px 12px;
+      color: var(--muted);
+      background: #f0f2eb;
+      border-radius: 12px;
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .cook-card .card-actions { margin-top: 13px; }
+
+    .cashback-board {
+      position: relative;
+      overflow: hidden;
+      padding: 30px;
+      color: white;
+      background: #191919;
+      border-radius: var(--radius-xl);
+      box-shadow: 0 24px 64px rgba(20, 20, 16, .16);
+    }
+
+    .cashback-board::after {
+      content: "";
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      top: -230px;
+      right: -90px;
+      background: #ffdd2d;
+      border-radius: 50%;
+      opacity: .14;
+    }
+
+    .cashback-board-head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .cashback-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .cashback-title .tbank-mark { width: 48px; height: 48px; border-radius: 15px; font-size: 20px; }
+    .cashback-title h3 { margin: 0; font-size: 27px; letter-spacing: -.035em; }
+    .cashback-title p { margin: 6px 0 0; color: rgba(255, 255, 255, .58); font-size: 13px; }
+
+    .tbank-button {
+      flex: 0 0 auto;
+      min-height: 46px;
+      color: #151515;
+      background: #ffdd2d;
+    }
+
+    .cashback-stats {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .cashback-stat {
+      padding: 17px;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 17px;
+    }
+
+    .cashback-stat span { display: block; color: rgba(255, 255, 255, .5); font-size: 10px; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+    .cashback-stat strong { display: block; margin-top: 9px; font-size: 25px; letter-spacing: -.035em; }
+
+    .cashback-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .cashback-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 258px;
+      padding: 20px;
+      color: white;
+      background: #262626;
+      border: 1px solid rgba(255, 255, 255, .09);
+      border-radius: 20px;
+    }
+
+    .cashback-card.featured { color: #171710; background: #ffdd2d; border-color: #ffdd2d; }
+    .cashback-card.muted { color: #d4d4ce; background: #20201f; }
+
+    .cashback-card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .cashback-store { font-size: 13px; font-weight: 900; }
+    .cashback-expiry { padding: 6px 8px; color: rgba(255, 255, 255, .62); background: rgba(255, 255, 255, .08); border-radius: 999px; font-size: 9px; font-weight: 850; }
+    .cashback-card.featured .cashback-expiry { color: #574c00; background: rgba(255, 255, 255, .5); }
+    .cashback-value { margin: 22px 0 3px; font-size: 43px; font-weight: 950; line-height: 1; letter-spacing: -.055em; }
+    .cashback-label { color: rgba(255, 255, 255, .58); font-size: 12px; }
+    .cashback-card.featured .cashback-label { color: #6f6100; }
+
+    .cashback-result {
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    .cashback-card.featured .cashback-result { border-color: rgba(74, 63, 0, .16); }
+    .cashback-result span { display: block; color: rgba(255, 255, 255, .5); font-size: 10px; line-height: 1.35; }
+    .cashback-card.featured .cashback-result span { color: #6f6100; }
+    .cashback-result strong { display: block; margin-top: 5px; font-size: 21px; letter-spacing: -.025em; }
+    .cashback-terms { margin: 9px 0 0; color: rgba(255, 255, 255, .55); font-size: 10px; line-height: 1.45; }
+    .cashback-card.featured .cashback-terms { color: #6f6100; }
+
+    .cashback-caveat {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 14px 0 0;
+      padding: 14px 16px;
+      color: rgba(255, 255, 255, .6);
+      background: rgba(255, 255, 255, .045);
+      border-radius: 14px;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .cashback-caveat strong { color: white; }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .method-card {
+      min-height: 188px;
+      padding: 22px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+    }
+
+    .method-number {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 28px;
+      color: white;
+      background: var(--ink);
+      border-radius: 11px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .method-card h3 { margin: 0 0 8px; font-size: 17px; letter-spacing: -.02em; }
+    .method-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+    .fine-print {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-top: 18px;
+      padding: 18px 20px;
+      color: #5d665f;
+      background: rgba(255, 255, 255, .48);
+      border: 1px dashed rgba(23, 49, 43, .18);
+      border-radius: 16px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .fine-print strong { color: var(--ink); }
+
+    footer {
+      padding: 34px 0 46px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .footer-row a { font-weight: 850; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+    .empty {
+      grid-column: 1 / -1;
+      padding: 46px 24px;
+      text-align: center;
+      color: var(--muted);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 10;
+      padding: 12px 16px;
+      color: white;
+      background: var(--ink);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 20px);
+      transition: opacity .2s ease, transform .2s ease;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 920px) {
+      .hero { min-height: auto; }
+      .hero-grid { grid-template-columns: 1fr; gap: 38px; }
+      .hero-panel { max-width: 520px; transform: none; }
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+      .comparison { grid-template-columns: 1fr; }
+      .comparison-note { flex-direction: row; align-items: center; }
+      .comparison-note .button { width: auto; }
+      .cook-board { grid-template-columns: 1fr; }
+      .recipe-card { min-height: 280px; }
+      .cashback-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .method-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 720px) {
+      .shell { width: min(100% - 22px, 1220px); }
+      .hero { padding-top: 18px; border-radius: 0 0 32px 32px; }
+      .topbar { margin-bottom: 54px; }
+      .snapshot { padding: 8px 10px; font-size: 11px; }
+      .hero-grid { gap: 28px; }
+      h1 { font-size: clamp(47px, 15vw, 68px); }
+      .hero-copy { font-size: 16px; }
+      .summary-grid { margin-top: -20px; }
+      .metric { min-height: 112px; padding: 17px; }
+      main { padding-top: 50px; }
+      .section { margin-top: 58px; }
+      .section-head { align-items: start; flex-direction: column; }
+      .toolbar { grid-template-columns: 1fr; }
+      .select-wrap { width: max-content; }
+      .store-grid { grid-template-columns: 1fr; }
+      .comparison { padding: 18px; border-radius: 24px; }
+      .ladder-row { grid-template-columns: 105px minmax(75px, 1fr) 78px; gap: 9px; }
+      .mini-logo { width: 26px; height: 26px; }
+      .comparison-note { align-items: stretch; flex-direction: column; }
+      .comparison-note .button { width: 100%; }
+      .cook-grid { grid-template-columns: 1fr; }
+      .cook-summary-head { flex-direction: column; }
+      .cashback-board { padding: 20px; border-radius: 24px; }
+      .cashback-board-head { flex-direction: column; }
+      .cashback-stats { grid-template-columns: 1fr; }
+      .cashback-grid { grid-template-columns: 1fr; }
+      .cashback-card { min-height: 225px; }
+      .method-grid { grid-template-columns: 1fr; }
+      .footer-row { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 440px) {
+      .brand span:last-child { display: none; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .hero-basket { grid-template-columns: 1fr; }
+      .hero-panel { padding: 20px; }
+      .store-card { padding: 19px; }
+      .store-price-row { align-items: flex-start; flex-direction: column; gap: 12px; }
+      .store-price { flex-wrap: nowrap; font-size: 34px; }
+      .saving { text-align: left; }
+      .saving strong { display: inline; margin-left: 5px; }
+      .ladder-row { grid-template-columns: 1fr 72px; }
+      .ladder-track { grid-column: 1 / -1; grid-row: 2; }
+      .ladder-price { grid-column: 2; grid-row: 1; }
+      .card-actions { grid-template-columns: 1fr 48px; }
+      .recipe-facts { grid-template-columns: 1fr; }
+      .recipe-card { min-height: 370px; }
+      .cook-ladder .ladder-row { grid-template-columns: 92px minmax(55px, 1fr) 68px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="shell">
+      <div class="topbar">
+        <div class="brand"><span class="brand-mark">↗</span><span>Корзина рядом</span></div>
+        <div class="snapshot"><span class="snapshot-dot"></span>Москва · снимок 4 октября 2026</div>
+      </div>
+
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Готовая еда · честное сравнение</p>
+          <h1>Один обед.<br>Четыре альтернативы.</h1>
+          <p class="hero-copy">Собрали московские корзины по сценарию «Лучший баланс» из ВкусВилла и оставили сам ВкусВилл как эталон. Все суммы разложены по блюдам — без скрытой математики.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#offers">Смотреть предложения <span aria-hidden="true">↓</span></a>
+            <a class="button button-ghost" href="#cook">Готовить дома</a>
+            <a class="button button-ghost" href="#cashback">Кэшбэк Т‑Банка</a>
+            <a class="button button-ghost" href="./vkusvill-obed.html">Подборка ВкусВилла</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Самая выгодная корзина">
+          <div class="hero-panel-kicker"><span>Лучшая цена сейчас</span><span>Магнит</span></div>
+          <p class="hero-price">1 072,92 <small>₽</small></p>
+          <p class="hero-price-caption">536,46 ₽ на человека · 8 порций</p>
+          <div class="hero-basket">
+            <span>🍲 2 супа</span>
+            <span>🍽️ 2 вторых</span>
+            <span>🥗 2 салата</span>
+            <span>🍰 2 десерта</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell summary-grid" aria-label="Краткая сводка">
+    <article class="metric metric-featured">
+      <span class="metric-label">Можно сэкономить</span>
+      <strong id="max-saving">816,08 ₽</strong>
+      <p>между самой доступной и самой дорогой корзиной</p>
+    </article>
+    <article class="metric">
+      <span class="metric-label">Сравнили</span>
+      <strong>4 + эталон</strong>
+      <p>четыре магазина и ВкусВилл</p>
+    </article>
+    <article class="metric">
+      <span class="metric-label">В корзине</span>
+      <strong>8 порций</strong>
+      <p>четыре блюда для двоих</p>
+    </article>
+    <article class="metric">
+      <span class="metric-label">Средняя цена</span>
+      <strong id="average-price">1 507,77 ₽</strong>
+      <p>по пяти найденным корзинам</p>
+    </article>
+  </div>
+
+  <main class="shell">
+    <section class="section" id="comparison">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" style="color: var(--green)">Сначала итог</p>
+          <h2>Где дешевле</h2>
+          <p class="section-lead">Полоса показывает стоимость всей корзины. Доставка, минимальная сумма заказа и персональные бонусы не включены.</p>
+        </div>
+      </div>
+
+      <div class="comparison">
+        <div class="price-ladder" id="price-ladder"></div>
+        <aside class="comparison-note">
+          <div>
+            <strong>−43% к максимуму</strong>
+            <p>«Магнит» в этом снимке на 816,08 ₽ дешевле эталонной корзины ВкусВилла. Перед заказом проверьте цену и наличие для своего адреса.</p>
+          </div>
+          <a class="button" href="#offers">Разобрать корзины</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="offers">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" style="color: var(--green)">Состав и ссылки</p>
+          <h2>Предложения магазинов</h2>
+          <p class="section-lead">Каждая строка ведёт на официальную карточку товара. Это подготовленные корзины: переход по ссылке сам по себе ничего не заказывает и не оплачивает.</p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="filters" id="filters" aria-label="Фильтр магазинов"></div>
+        <label class="select-wrap">
+          <span>Сортировка</span>
+          <select id="sort-select" aria-label="Сортировка предложений">
+            <option value="price-asc">Сначала дешевле</option>
+            <option value="price-desc">Сначала дороже</option>
+            <option value="name">По названию</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="store-grid" id="store-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="section" id="cook">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" style="color: var(--green)">Не готовая еда</p>
+          <h2>Приготовить дома</h2>
+          <p class="section-lead">Один рецепт на двоих и пять чеков за сырые продукты. Считаем реальные упаковки: если магазин продаёт большую сетку картофеля или крупный лоток курицы, остаток остаётся дома.</p>
+        </div>
+      </div>
+
+      <div class="cook-board">
+        <article class="recipe-card">
+          <p class="recipe-kicker">Ужин без полуфабрикатов</p>
+          <h3>Курица с картофелем в сметане</h3>
+          <p>Курицу или фарш обжарить с луком и морковью, добавить картофель и сметану, затем тушить под крышкой или запечь. Масло, соль, перец и вода в чек не входят.</p>
+          <div class="recipe-facts">
+            <div class="recipe-fact"><span>Порции</span><strong>2 большие</strong></div>
+            <div class="recipe-fact"><span>Время</span><strong>≈45 минут</strong></div>
+            <div class="recipe-fact"><span>Нужно</span><strong>5 продуктов</strong></div>
+          </div>
+        </article>
+
+        <div class="cook-summary">
+          <div class="cook-summary-head">
+            <div><h3>Чек за упаковки</h3><p>Рейтинг ниже относится только к этому домашнему блюду. Доставка и кэшбэк не вычтены; цены и наличие зависят от адреса.</p></div>
+            <span class="cook-badge">от <span id="cook-min-price">482 ₽</span></span>
+          </div>
+          <div class="cook-ladder" id="cook-ladder" aria-label="Сравнение корзин для готовки"></div>
+        </div>
+      </div>
+
+      <div class="cook-grid" id="cook-grid" aria-live="polite"></div>
+
+      <div class="fine-print">
+        <span aria-hidden="true">ⓘ</span>
+        <div><strong>Почему вес отличается:</strong> сравниваем не цену «использованных 200 граммов», а сумму, которую придётся заплатить за доступную упаковку или весовой товар. Поэтому в «Магните» в чек попадает сетка картофеля 2,48 кг, а во ВкусВилле — ровно 1 кг.</div>
+      </div>
+    </section>
+
+    <section class="section" id="cashback">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" style="color: var(--green)">Не входит в пример</p>
+          <h2>Персональный кэшбэк</h2>
+          <p class="section-lead">Проверьте доступные предложения в своём банке перед оплатой. Персональные ставки, сроки и лимиты намеренно не сохранены в этом примере.</p>
+        </div>
+      </div>
+      <div class="fine-print">
+        <span aria-hidden="true">ⓘ</span>
+        <div><strong>Важно:</strong> кэшбэк не уменьшает цену на кассе и не включён в рейтинг корзин. Добавляйте его только после проверки условий для конкретного магазина и канала покупки.</div>
+      </div>
+    </section>
+
+    <section class="section" id="method">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" style="color: var(--green)">Как считаем</p>
+          <h2>Одинаковый сценарий</h2>
+        </div>
+      </div>
+
+      <div class="method-grid">
+        <article class="method-card"><span class="method-number">01</span><h3>На двоих</h3><p>В каждой корзине восемь порций: по два супа, вторых блюда, салата и десерта.</p></article>
+        <article class="method-card"><span class="method-number">02</span><h3>Два сценария</h3><p>Готовые блюда считаются порциями, а домашний рецепт — фактически покупаемыми упаковками сырых продуктов.</p></article>
+        <article class="method-card"><span class="method-number">03</span><h3>Цена продукта</h3><p>Складываем цены карточек. Доставка и ограничения по минимальному заказу остаются за рамками.</p></article>
+        <article class="method-card"><span class="method-number">04</span><h3>Ручная проверка</h3><p>Ссылки ведут в официальные каталоги — там видны актуальные цена и наличие для вашего адреса.</p></article>
+      </div>
+
+      <div class="fine-print">
+        <span aria-hidden="true">ⓘ</span>
+        <div><strong>Важно:</strong> это снимок каталогов на 4 октября 2026 года, а не оферта. Ассортимент и цены меняются от магазина, адреса и времени. Основные суммы не уменьшаются на кэшбэк — возможная выгода показана отдельно и требует проверки условий перед оплатой.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-row">
+      <span>Локальная подборка · данные остаются в этом файле</span>
+      <a href="#comparison">Наверх ↑</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Список скопирован</div>
+
+  <script>
+    const CATEGORY = {
+      soup: { label: "Суп", icon: "🍲" },
+      main: { label: "Второе", icon: "🍽️" },
+      salad: { label: "Салат", icon: "🥗" },
+      dessert: { label: "Десерт", icon: "🍰" }
+    };
+
+    const stores = [
+      {
+        id: "magnit",
+        name: "Магнит",
+        short: "М",
+        color: "#e30613",
+        home: "https://magnit.ru/",
+        location: "Москва · Магнит на Кировоградской, 8к2 · магазин 773364 · около 330 м",
+        items: [
+          { category: "soup", name: "Борщ НатурБуфет с мясом", weight: "250 г", qty: 1, price: 109.99, url: "https://magnit.ru/product/1000327829-borshch_naturbufet_s_myasom_250g_lotok_6?shopCode=773364&shopType=supermarket" },
+          { category: "soup", name: "Суп «Солянка Домашняя» НатурБуфет", weight: "250 г", qty: 1, price: 125.99, url: "https://magnit.ru/product/1000581623-naturbufet_solyanka_domashnyaya_250g_pl_st_doronichi?shopCode=773364&shopType=supermarket" },
+          { category: "main", name: "Шницель Vilon с картофельным пюре", weight: "350 г", qty: 2, price: 249.99, url: "https://magnit.ru/product/3062106005-shnitsel_vilon_s_kartofelnym_pyure_350g?shopCode=773364&shopType=supermarket" },
+          { category: "salad", name: "Морковь по-корейски с грибами", weight: "150 г", qty: 1, price: 79.99, url: "https://magnit.ru/product/1000297792-morkov_po_koreyski_s_gribami_150g_plastikovaya_banka_6?shopCode=773364&shopType=supermarket" },
+          { category: "salad", name: "Капуста маринованная по-московски", weight: "500 г", qty: 1, price: 134.99, url: "https://magnit.ru/product/1000297803-kapusta_marinovannaya_po_moskovski_500g?shopCode=773364&shopType=supermarket" },
+          { category: "dessert", name: "Десерт творожный «Чудо» вишня-черешня", weight: "100 г", qty: 1, price: 62.99, url: "https://magnit.ru/product/1000047322-desert_chudo_tvorozhnyy_vishnya_i_chereshnya_4_100g?shopCode=773364&shopType=supermarket" },
+          { category: "dessert", name: "Пирожное «Картошка» в молочном шоколаде", weight: "45 г", qty: 1, price: 58.99, url: "https://magnit.ru/product/1000510907-36_kopeek_pirozhnoe_kartoshka_klas_v_moloch_belgiyckom_shok_45g?shopCode=773364&shopType=supermarket" }
+        ]
+      },
+      {
+        id: "pyaterochka",
+        name: "Пятёрочка",
+        short: "5",
+        color: "#e52b38",
+        home: "https://5ka.ru/",
+        location: "Москва · официальный каталог · наличие зависит от выбранного магазина",
+        items: [
+          { category: "soup", name: "Суп гороховый с копчёностями Главсуп", weight: "250 г", qty: 2, price: 118.99, url: "https://5ka.ru/product/sup-gorokhovyy-s-kopchenostyami-glavsup-250g--3236287/" },
+          { category: "main", name: "Котлета пожарская с гречкой Пятёрочка Кафе", weight: "220 г", qty: 2, price: 189.99, url: "https://5ka.ru/product/kotleta-pozharskaya-s-grechkoy-pyatyorochka-kafe-2--4457288/" },
+          { category: "salad", name: "Салат деревенский с курицей и фасолью", weight: "200 г", qty: 2, price: 169.99, url: "https://5ka.ru/product/salat-derevenskiy-s-kuritsey-i-fasolyu-pyatyorochk--4315310/" },
+          { category: "dessert", name: "Налистники с сырным кремом и манго-маракуйей", weight: "140 г", qty: 2, price: 179.99, url: "https://5ka.ru/product/nalistniki-konvertiki-s-syrnym-kremom-i-nachinkoy--4473245/" }
+        ]
+      },
+      {
+        id: "ozon",
+        name: "Ozon Fresh",
+        short: "O",
+        color: "#005bff",
+        home: "https://www.ozon.ru/category/ozon-fresh-14572/",
+        location: "Москва · официальный каталог · точный адрес доставки не передавался",
+        items: [
+          { category: "soup", name: "Борщ с говядиной Ozon Fresh", weight: "300 г", qty: 1, price: 199, url: "https://www.ozon.ru/product/borshch-s-govyadinoy-300-g-ozon-fresh-1650444606/" },
+          { category: "soup", name: "Суп с куриными фрикадельками и пастой Ozon Fresh", weight: "300 г", qty: 1, price: 175, url: "https://www.ozon.ru/product/sup-s-kurinymi-frikadelkami-i-pastoy-300-g-ozon-fresh-1650444596/" },
+          { category: "main", name: "Шницель куриный с картофельным пюре Ozon Fresh", weight: "250 г", qty: 2, price: 295, url: "https://www.ozon.ru/product/shnitsel-kurinyy-s-kartofelnym-pyure-250-g-ozon-fresh-538012256/" },
+          { category: "salad", name: "Винегрет с квашеной капустой Yumi", weight: "180 г", qty: 1, price: 199, url: "https://www.ozon.ru/product/vinegret-s-kvashenoy-kapustoy-180-g-yumi-3545410570/" },
+          { category: "salad", name: "Винегрет без картофеля Ozon Fresh", weight: "150 г", qty: 1, price: 159, url: "https://www.ozon.ru/product/vinegret-bez-kartofelya-150-g-ozon-fresh-2824492008/" },
+          { category: "dessert", name: "Вупи пай ваниль и лесная ягода Ozon Fresh", weight: "80 г", qty: 1, price: 259, url: "https://www.ozon.ru/product/desert-vupi-pay-vanil-i-lesnaya-yagoda-80-g-ozon-fresh-zamorozhennyy-3538915614/" },
+          { category: "dessert", name: "Пирожные «Картошка» с ванильным кремом Ozon Fresh", weight: "120 г", qty: 1, price: 249, url: "https://www.ozon.ru/product/nabor-pirozhnyh-kartoshka-s-vanilnym-kremom-osenniy-urozhay-zamorozhennyy-120-g-ozon-fresh-5430504833/" }
+        ]
+      },
+      {
+        id: "vkusvill",
+        name: "ВкусВилл",
+        short: "ВВ",
+        color: "#05a75b",
+        home: "https://vkusvill.ru/",
+        location: "Эталон · набор «Лучший баланс» из исходной подборки · готовая общая корзина",
+        items: [
+          { category: "soup", name: "Щи из свежей капусты постные", weight: "390 г", qty: 1, price: 185, url: "https://vkusvill.ru/goods/shchi-iz-svezhey-kapusty-postnye-89299/" },
+          { category: "soup", name: "Суп «Рассольник» с курицей", weight: "390 г", qty: 1, price: 246, url: "https://vkusvill.ru/goods/sup-rassolnik-s-kuritsey-30290/" },
+          { category: "main", name: "Шницель куриный с картофельным пюре", weight: "270 г", qty: 2, price: 310, url: "https://vkusvill.ru/goods/shnitsel-kurinyy-s-kartofelnym-pyure-270-g-114131/" },
+          { category: "salad", name: "Винегрет с маринованной капустой", weight: "180 г", qty: 1, price: 186, url: "https://vkusvill.ru/goods/salat-vinegret-s-marinovannoy-kapustoy-20665/" },
+          { category: "salad", name: "Винегрет без картофеля", weight: "150 г", qty: 1, price: 190, url: "https://vkusvill.ru/goods/salat-vinegret-bez-kartofelya-25360/" },
+          { category: "dessert", name: "Десерт «Бонфуа» с лесными ягодами и крем-чиз", weight: "150 г", qty: 1, price: 242, url: "https://vkusvill.ru/goods/desert-bonfua-s-lesnymi-yagodami-i-krem-chiz-113288/" },
+          { category: "dessert", name: "Пирожное «Картошка» с шоколадным соусом", weight: "150 г", qty: 1, price: 220, url: "https://vkusvill.ru/goods/pirozhnoe-kartoshka-s-shokoladnym-sousom-88409/" }
+        ]
+      },
+      {
+        id: "lavka",
+        name: "Яндекс Лавка",
+        short: "Я",
+        color: "#ffd600",
+        logoInk: "#1f241f",
+        home: "https://lavka.yandex.ru/",
+        location: "Москва · витрина для района Сумского проезда · борщ уже добавлен в реальную корзину",
+        items: [
+          { category: "soup", name: "Борщ с говядиной «Из Лавки»", weight: "330 г", qty: 1, price: 248, url: "https://lavka.yandex.ru/good/borsh-s-govyadinoj-iz-lavki-330-gram" },
+          { category: "soup", name: "Суп с фрикадельками и овощами «Из Лавки»", weight: "330 г", qty: 1, price: 227, url: "https://lavka.yandex.ru/good/sup-s-frikadelkami-i-ovoshami-iz-lavki-270-gram" },
+          { category: "main", name: "Шницель из курицы с рисом, большая порция", weight: "500 г", qty: 1, price: 387, url: "https://lavka.yandex.ru/good/shnicel-iz-kuricy-s-risom-bolshaya-porciya-iz-lavki-500-gram" },
+          { category: "salad", name: "Винегрет с квашеной капустой «Из Лавки»", weight: "200 г", qty: 1, price: 129, url: "https://lavka.yandex.ru/good/salat-vinegret-s-kvashenoj-kapustoj-iz-lavki-200-gram" },
+          { category: "salad", name: "Винегрет «Из Лавки»", weight: "200 г", qty: 1, price: 153, url: "https://lavka.yandex.ru/good/salat-vinegret-200-gram" },
+          { category: "dessert", name: "Десерт творожный ягодный «Из Лавки»", weight: "180 г", qty: 1, price: 125, url: "https://lavka.yandex.ru/good/desert-tvorozhnyj-iz-lavki-yagodnyj-180-gram" },
+          { category: "dessert", name: "Пирожное «Картошка» классическое", weight: "120 г", qty: 1, price: 160, url: "https://lavka.yandex.ru/good/pirozhnoe-kartoshka-klassicheskaya-120-gram" }
+        ]
+      }
+    ];
+
+    const CASHBACK = {
+      magnit: { title: "Проверьте кэшбэк для Магнита", detail: "персональные условия не включены в публичный пример" },
+      pyaterochka: { title: "Проверьте кэшбэк для Пятёрочки", detail: "персональные условия не включены в публичный пример" },
+      vkusvill: { title: "Проверьте кэшбэк для ВкусВилла", detail: "персональные условия не включены в публичный пример" },
+      ozon: { title: "Проверьте кэшбэк для Ozon Fresh", detail: "персональные условия не включены в публичный пример" },
+      lavka: { title: "Проверьте кэшбэк для Яндекс Лавки", detail: "персональные условия не включены в публичный пример" }
+    };
+
+    const COOK_STORES = [
+      {
+        id: "pyaterochka",
+        name: "Пятёрочка",
+        short: "5",
+        color: "#e52b38",
+        home: "https://5ka.ru/",
+        note: "Куриная основа здесь — сырой фарш: получится более нежная версия блюда.",
+        source: "Овощи и фарш — публичный снимок каталога; наличие проверьте на 5ka.ru.",
+        items: [
+          { icon: "🍗", name: "Фарш «Петелинка Премиум» из филе грудки", weight: "450 г", price: 200, url: "https://5ka.ru/product/farsh-petelinka-premium-iz-file-grudki-okhlazhdenn--4243884/" },
+          { icon: "🥔", name: "Картофель отечественный", weight: "1 кг", price: 42, url: "https://5ka.ru/product/kartofel-otechestvennyy--3953590/" },
+          { icon: "🥕", name: "Морковь на подложке", weight: "600 г", price: 87, url: "https://5ka.ru/product/morkov-na-podlozhke-600g--3368256/" },
+          { icon: "🧅", name: "Лук репчатый", weight: "1 кг", price: 53, url: "https://5ka.ru/product/luk-repchatyy--197/" },
+          { icon: "🥛", name: "Сметана «Домик в деревне» 15%", weight: "300 г", price: 99.99, url: "https://5ka.ru/catalog/molochnaya-produktsiya-i-yaytso--251C12887/" }
+        ]
+      },
+      {
+        id: "vkusvill",
+        name: "ВкусВилл",
+        short: "ВВ",
+        color: "#05a75b",
+        home: "https://vkusvill.ru/",
+        note: "Весовые позиции рассчитаны ровно на рецепт — лишних овощей почти не останется.",
+        source: "Официальный каталог; весовые позиции посчитаны по цене за килограмм.",
+        items: [
+          { icon: "🍗", name: "Филе грудки цыплёнка-бройлера", weight: "600 г × 645 ₽/кг", price: 387, url: "https://vkusvill.ru/goods/file-grudki-tsyplenka-broylera-488/" },
+          { icon: "🥔", name: "Картофель", weight: "1 кг", price: 58, url: "https://vkusvill.ru/goods/kartofel-1713/" },
+          { icon: "🥕", name: "Морковь", weight: "200 г × 55 ₽/кг", price: 11, url: "https://vkusvill.ru/goods/morkov-606/" },
+          { icon: "🧅", name: "Лук репчатый", weight: "200 г × 58 ₽/кг", price: 11.60, url: "https://vkusvill.ru/goods/luk-repchatyy-605/" },
+          { icon: "🥛", name: "Сметана 15%", weight: "250 г", price: 98, url: "https://vkusvill.ru/goods/smetana-15-14526/" }
+        ]
+      },
+      {
+        id: "ozon",
+        name: "Ozon Fresh",
+        short: "O",
+        color: "#005bff",
+        home: "https://www.ozon.ru/category/ozon-fresh-14572/",
+        note: "В чек входят килограммовые упаковки овощей и лоток филе 750 г — часть продуктов останется.",
+        source: "Публичная витрина Ozon; цена и продавец могут измениться для вашего адреса.",
+        items: [
+          { icon: "🍗", name: "Филе грудки цыплёнка охлаждённое", weight: "750 г", price: 399, url: "https://www.ozon.ru/category/grudka-kurinaya-ohlazhdennaya/" },
+          { icon: "🥔", name: "Картофель в сетке", weight: "1 кг", price: 45, url: "https://www.ozon.ru/product/kartofel-v-setke-1-kg-1062697892/" },
+          { icon: "🥕", name: "Морковь свежая", weight: "1 кг", price: 64, url: "https://www.ozon.ru/category/morkov/" },
+          { icon: "🧅", name: "Лук репчатый свежий", weight: "1 кг", price: 49, url: "https://www.ozon.ru/search/?text=%D0%BB%D1%83%D0%BA%20%D1%80%D0%B5%D0%BF%D1%87%D0%B0%D1%82%D1%8B%D0%B9" },
+          { icon: "🥛", name: "Сметана «Простоквашино» 15%", weight: "300 г", price: 89, url: "https://www.ozon.ru/category/smetana-prostokvashino-fruktovaya/" }
+        ]
+      },
+      {
+        id: "lavka",
+        name: "Яндекс Лавка",
+        short: "Я",
+        color: "#ffd600",
+        logoInk: "#1f241f",
+        home: "https://lavka.yandex.ru/",
+        note: "В чек входит 900 г куриного филе — часть останется на следующий приём пищи.",
+        source: "Публичная витрина Лавки на Яндекс Маркете; итог зависит от района доставки.",
+        items: [
+          { icon: "🍗", name: "Филе грудки цыплёнка «Троекурово»", weight: "900 г", price: 397, url: "https://m.integration.vs.market.yandex.net/category/file-grudki-tsyplenka-broylera" },
+          { icon: "🥔", name: "Картофель", weight: "1 кг", price: 58, url: "https://m.integration.vs.market.yandex.net/business--yandex-lavka/163880634" },
+          { icon: "🥕", name: "Морковь", weight: "1 кг", price: 58, url: "https://m.integration.vs.market.yandex.net/business--yandex-lavka/163880634" },
+          { icon: "🧅", name: "Лук репчатый молодой", weight: "упаковка", price: 70, url: "https://m.integration.vs.market.yandex.net/card/luk-repchatyy-molodoy/5830465828" },
+          { icon: "🥛", name: "Сметана «Экомилк» 15%", weight: "300 г", price: 94, url: "https://m.integration.vs.market.yandex.net/card/smetana-15-slivochnaya-ekomilk/103809339100" }
+        ]
+      },
+      {
+        id: "magnit",
+        name: "Магнит",
+        short: "М",
+        color: "#e30613",
+        home: "https://magnit.ru/",
+        note: "Большая сетка картофеля 2,48 кг и лоток курицы 1 кг повышают чек, зато остаётся запас.",
+        source: "Официальные карточки московских магазинов; позиции собраны из доступных витрин сети.",
+        items: [
+          { icon: "🍗", name: "Филе грудки цыплёнка-бройлера", weight: "1 кг", price: 429.99, url: "https://magnit.ru/product/1000233462-file_tsb_okhl_lotok_1_kg_v_lotok_ooo_soyuzptitseprom_5?shopCode=633555&shopType=1" },
+          { icon: "🥔", name: "Картофель фасованный", weight: "2,48 кг", price: 198.37, url: "https://magnit.ru/product/1445100062-kartofel_fasovannyy?shopCode=777785&shopType=1" },
+          { icon: "🥕", name: "Морковь", weight: "700 г", price: 25.05, url: "https://magnit.ru/product/9072651201-morkov?shopCode=770287&shopType=1" },
+          { icon: "🧅", name: "Лук репчатый", weight: "700 г", price: 39.89, url: "https://magnit.ru/product/9072651204-luk_repchatyy?shopCode=770096&shopType=1" },
+          { icon: "🥛", name: "Сметана «Простоквашино» 15%", weight: "300 г", price: 74.99, url: "https://magnit.ru/product/1000372785-prostokvashino_smetana_15_300g_plastikovyy_stakan_ao_danon_rossiya_12?shopCode=771348&shopType=1" }
+        ]
+      }
+    ];
+
+    const state = { filter: "all", sort: "price-asc" };
+    const money = new Intl.NumberFormat("ru-RU", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+    const total = store => store.items.reduce((sum, item) => sum + item.price * item.qty, 0);
+    const totals = stores.map(total);
+    const minTotal = Math.min(...totals);
+    const maxTotal = Math.max(...totals);
+
+    document.getElementById("max-saving").textContent = money.format(maxTotal - minTotal) + " ₽";
+    document.getElementById("average-price").textContent = money.format(totals.reduce((a, b) => a + b, 0) / totals.length) + " ₽";
+
+    function sortedStores(list = stores) {
+      return [...list].sort((a, b) => {
+        if (state.sort === "price-desc") return total(b) - total(a);
+        if (state.sort === "name") return a.name.localeCompare(b.name, "ru");
+        return total(a) - total(b);
+      });
+    }
+
+    function renderFilters() {
+      const filters = [{ id: "all", name: "Все магазины" }, ...stores.map(({ id, name }) => ({ id, name }))];
+      document.getElementById("filters").innerHTML = filters.map(filter => `
+        <button class="filter" type="button" data-filter="${filter.id}" aria-pressed="${state.filter === filter.id}">${filter.name}</button>
+      `).join("");
+    }
+
+    function renderLadder() {
+      const ordered = [...stores].sort((a, b) => total(a) - total(b));
+      document.getElementById("price-ladder").innerHTML = ordered.map(store => `
+        <div class="ladder-row" style="--store-color:${store.color};--logo-ink:${store.logoInk || "white"}">
+          <div class="ladder-label"><span class="mini-logo" style="color:${store.logoInk || "white"}">${store.short}</span><span>${store.name}</span></div>
+          <div class="ladder-track" aria-hidden="true"><div class="ladder-fill" style="width:${(total(store) / maxTotal * 100).toFixed(1)}%"></div></div>
+          <div class="ladder-price">${money.format(total(store))} ₽</div>
+        </div>
+      `).join("");
+    }
+
+    function itemTemplate(item) {
+      const category = CATEGORY[item.category];
+      return `
+        <a class="basket-item" href="${item.url}" target="_blank" rel="noopener noreferrer" title="Открыть в официальном каталоге">
+          <span class="item-icon" aria-hidden="true">${category.icon}</span>
+          <span>
+            <span class="item-name">${item.name}</span>
+            <span class="item-meta">${category.label} · ${item.weight} · ${item.qty} × ${money.format(item.price)} ₽</span>
+          </span>
+          <span class="item-total">${money.format(item.price * item.qty)} ₽</span>
+        </a>
+      `;
+    }
+
+    function storeTemplate(store, priceRank) {
+      const storeTotal = total(store);
+      const cookingStore = COOK_STORES.find(item => item.id === store.id);
+      const cookingPrice = cookingStore ? cookTotal(cookingStore) : null;
+      const best = Math.abs(storeTotal - minTotal) < .01;
+      const saving = maxTotal - storeTotal;
+      const cashback = CASHBACK[store.id];
+      const hasDirectCashback = !cashback.title.includes("не найдено");
+      return `
+        <article class="store-card ${best ? "best" : ""}" style="--store-color:${store.color};--logo-ink:${store.logoInk || "white"}">
+          <div class="store-top">
+            <div class="store-id">
+              <span class="store-logo">${store.short}</span>
+              <div><h3 class="store-name">${store.name}</h3><p class="store-caption">8 порций · 4 категории</p></div>
+            </div>
+            <span class="rank ${best ? "rank-best" : ""}">${best ? "Лучшая цена" : `№${priceRank}`}</span>
+          </div>
+
+          <div class="store-price-row">
+            <div>
+              <p class="store-price">${money.format(storeTotal)} ₽ ${cookingPrice === null ? "" : `<small class="cook-inline" title="Продукты для приготовления дома">(${money.format(cookingPrice)} ₽)</small>`}</p>
+              <div class="store-price-label">готовая корзина · ${money.format(storeTotal / 2)} ₽/чел. · в скобках — приготовить самому</div>
+            </div>
+            <div class="saving">${saving > .01 ? "ниже максимума" : "верхняя граница"}<strong>${saving > .01 ? "−" + money.format(saving) + " ₽" : "—"}</strong></div>
+          </div>
+
+          <div class="store-cashback ${hasDirectCashback ? "" : "none"}">
+            <span class="tbank-mark" aria-hidden="true">Т</span>
+            <span><strong>${cashback.title}</strong><small>${cashback.detail}</small></span>
+            <a href="#cashback">Подробнее</a>
+          </div>
+
+          <div class="basket-list">${store.items.map(itemTemplate).join("")}</div>
+
+          <div class="card-actions">
+            <a class="button store-open" href="${store.home}" target="_blank" rel="noopener noreferrer">Открыть ${store.name}</a>
+            <button class="copy-button" type="button" data-copy="${store.id}" aria-label="Скопировать список ${store.name}" title="Скопировать список">⧉</button>
+          </div>
+          <p class="location-note"><span aria-hidden="true">⌖</span><span>${store.location}</span></p>
+        </article>
+      `;
+    }
+
+    function renderCards() {
+      const priceOrder = [...stores].sort((a, b) => total(a) - total(b));
+      let visible = state.filter === "all" ? stores : stores.filter(store => store.id === state.filter);
+      visible = sortedStores(visible);
+      const grid = document.getElementById("store-grid");
+      grid.innerHTML = visible.length
+        ? visible.map(store => storeTemplate(store, priceOrder.findIndex(item => item.id === store.id) + 1)).join("")
+        : '<div class="empty">Ничего не найдено</div>';
+    }
+
+    const cookTotal = store => store.items.reduce((sum, item) => sum + item.price, 0);
+
+    function renderCook() {
+      const ordered = [...COOK_STORES].sort((a, b) => cookTotal(a) - cookTotal(b));
+      const cookMax = Math.max(...ordered.map(cookTotal));
+      document.getElementById("cook-min-price").textContent = money.format(cookTotal(ordered[0])) + " ₽";
+      document.getElementById("cook-ladder").innerHTML = ordered.map(store => `
+        <div class="ladder-row" style="--store-color:${store.color};--logo-ink:${store.logoInk || "white"}">
+          <div class="ladder-label"><span class="mini-logo" style="color:${store.logoInk || "white"}">${store.short}</span><span>${store.name}</span></div>
+          <div class="ladder-track" aria-hidden="true"><div class="ladder-fill" style="width:${(cookTotal(store) / cookMax * 100).toFixed(1)}%"></div></div>
+          <div class="ladder-price">${money.format(cookTotal(store))} ₽</div>
+        </div>
+      `).join("");
+
+      document.getElementById("cook-grid").innerHTML = ordered.map((store, index) => {
+        const cashback = CASHBACK[store.id];
+        const hasDirectCashback = !cashback.title.includes("не найдено");
+        return `
+          <article class="cook-card ${index === 0 ? "best" : ""}" style="--store-color:${store.color};--logo-ink:${store.logoInk || "white"}">
+            <div class="cook-card-head">
+              <div class="store-id">
+                <span class="store-logo">${store.short}</span>
+                <div><h3 class="store-name">${store.name}</h3><p class="store-caption">5 сырых продуктов · на двоих</p></div>
+              </div>
+              <div class="cook-total"><strong>${money.format(cookTotal(store))} ₽</strong><span>${money.format(cookTotal(store) / 2)} ₽ / человек</span></div>
+            </div>
+            <div class="cook-items">
+              ${store.items.map(item => `
+                <a class="cook-item" href="${item.url}" target="_blank" rel="noopener noreferrer" title="Открыть карточку продукта">
+                  <span class="cook-item-icon" aria-hidden="true">${item.icon}</span>
+                  <span><strong class="cook-item-name">${item.name}</strong><small class="cook-item-meta">${item.weight}</small></span>
+                  <b class="cook-item-price">${money.format(item.price)} ₽</b>
+                </a>
+              `).join("")}
+            </div>
+            <p class="cook-card-note">${store.note}</p>
+            <div class="store-cashback ${hasDirectCashback ? "" : "none"}">
+              <span class="tbank-mark" aria-hidden="true">Т</span>
+              <span><strong>${cashback.title}</strong><small>${cashback.detail}</small></span>
+              <a href="#cashback">Подробнее</a>
+            </div>
+            <div class="card-actions">
+              <a class="button store-open" href="${store.home}" target="_blank" rel="noopener noreferrer">Открыть ${store.name}</a>
+              <button class="copy-button" type="button" data-copy-cook="${store.id}" aria-label="Скопировать список ${store.name}" title="Скопировать список">⧉</button>
+            </div>
+            <p class="location-note"><span aria-hidden="true">⌖</span><span>${store.source}</span></p>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function copyStore(storeId) {
+      const store = stores.find(item => item.id === storeId);
+      const lines = [
+        `${store.name} — ${money.format(total(store))} ₽`,
+        ...store.items.map(item => `${CATEGORY[item.category].icon} ${item.name}, ${item.weight} — ${item.qty} × ${money.format(item.price)} ₽`),
+        `Итого на двоих: ${money.format(total(store))} ₽`,
+        `Т‑Банк: ${CASHBACK[store.id].title} — ${CASHBACK[store.id].detail}.`,
+        "Цены проверены 04.10.2026; перед заказом уточните их для своего адреса."
+      ];
+      const text = lines.join("\n");
+      const done = () => {
+        const toast = document.getElementById("toast");
+        toast.classList.add("show");
+        window.setTimeout(() => toast.classList.remove("show"), 1700);
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+      } else {
+        fallbackCopy(text, done);
+      }
+    }
+
+    function copyCookStore(storeId) {
+      const store = COOK_STORES.find(item => item.id === storeId);
+      const lines = [
+        `${store.name} — продукты для курицы с картофелем в сметане`,
+        ...store.items.map(item => `${item.icon} ${item.name}, ${item.weight} — ${money.format(item.price)} ₽`),
+        `Итого на двоих: ${money.format(cookTotal(store))} ₽`,
+        `На человека: ${money.format(cookTotal(store) / 2)} ₽`,
+        `Т‑Банк: ${CASHBACK[store.id].title} — ${CASHBACK[store.id].detail}.`,
+        "Масло, соль, перец и вода не включены. Цены проверены 04.10.2026; перед заказом уточните их для своего адреса."
+      ];
+      const text = lines.join("\n");
+      const done = () => {
+        const toast = document.getElementById("toast");
+        toast.classList.add("show");
+        window.setTimeout(() => toast.classList.remove("show"), 1700);
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+      } else {
+        fallbackCopy(text, done);
+      }
+    }
+
+    function fallbackCopy(text, done) {
+      const area = document.createElement("textarea");
+      area.value = text;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      area.remove();
+      done();
+    }
+
+    document.getElementById("filters").addEventListener("click", event => {
+      const button = event.target.closest("[data-filter]");
+      if (!button) return;
+      state.filter = button.dataset.filter;
+      renderFilters();
+      renderCards();
+    });
+
+    document.getElementById("sort-select").addEventListener("change", event => {
+      state.sort = event.target.value;
+      renderCards();
+    });
+
+    document.getElementById("store-grid").addEventListener("click", event => {
+      const button = event.target.closest("[data-copy]");
+      if (button) copyStore(button.dataset.copy);
+    });
+
+    document.getElementById("cook-grid").addEventListener("click", event => {
+      const button = event.target.closest("[data-copy-cook]");
+      if (button) copyCookStore(button.dataset.copyCook);
+    });
+
+    renderFilters();
+    renderLadder();
+    renderCards();
+    renderCook();
+  </script>
+</body>
+</html>
