@@ -1,0 +1,21 @@
+{
+  "model": "mlx-community/Qwen3-TTS-12Hz-1.7B-Base-8bit",
+  "asr_model": "mlx-community/whisper-large-v3-turbo-8bit",
+  "asr_engine": "mlx_whisper",
+  "max_chunk_characters": 1200,
+  "temperature": 0.65,
+  "top_p": 0.9,
+  "repetition_penalty": 1.5,
+  "max_tokens": 2200,
+  "seed": 260920,
+  "tempo": 1.0,
+  "mp3_bitrate": "128k",
+  "sample_rate": 24000,
+  "loudness_lufs": -19,
+  "paragraph_pause_seconds": 0.65,
+  "sentence_pause_seconds": 0.24,
+  "chapter_pause_seconds": 1.25,
+  "asr_audit": true,
+  "asr_wer_warning_threshold": 0.18,
+  "asr_retry_rounds": 2
+}
