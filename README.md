@@ -1,4 +1,4 @@
-# gf
+# Skills
 
 Reusable agent skills and workflows.
 
