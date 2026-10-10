@@ -11,12 +11,16 @@ It supports:
 - standalone responsive HTML output;
 - syntax and structure validation.
 
-## Install
+## Local Codex registration
+
+The canonical checkout is `/Users/alex/github`. Register the whole skill directory so references and scripts stay accessible:
 
 ```bash
-git clone https://github.com/Solodovnick/skills.git ~/Solodovnick-skills
-cp -R ~/Solodovnick-skills/skills/buy ~/.cursor/skills/buy
+mkdir -p ~/.agents/skills
+ln -s /Users/alex/github/skills/buy ~/.agents/skills/buy
 ```
+
+Create the link only if that destination is absent; preserve an existing correct link. See the [library index](../../README.md) for the shared setup.
 
 Invoke it explicitly as `$buy`.
 
