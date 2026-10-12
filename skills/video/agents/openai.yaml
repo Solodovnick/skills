@@ -1,0 +1,3 @@
+interface:
+  display_name: "Video Cleanup & QA"
+  short_description: "Локальная очистка видео, очереди и строгая QA"
