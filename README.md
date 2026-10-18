@@ -12,6 +12,7 @@ The canonical local checkout is `/Users/alex/github`, renamed from `gh` with Git
 - [`buy`](skills/buy/SKILL.md) — Explicitly invoked grocery comparison with current prices, same-store baskets, and a verified HTML result.
 - [`grill-me`](skills/grill-me/SKILL.md) — Explicit interview entry point; delegates to `grilling`.
 - [`grilling`](skills/grilling/SKILL.md) — Rounds of dependent design decisions, with independent factual discovery before asking the user.
+- [`pdf`](skills/pdf/SKILL.md) — Inspect, edit, clean, and verify PDFs with page-aware tools and reusable scripts for text overlays and raster page repair.
 
 ## Discovery and updates
 
