@@ -102,6 +102,7 @@ Whisper не транскрибирует ударения. Автоматиче
 
 ## Дополнительные инструкции
 
+- Короткие реплики и озвучка видео, ремонт произношения, повторное использование принятого звука и переносимые скрипты: [NARRATION_PLAYBOOK.md](NARRATION_PLAYBOOK.md)
 - Подготовка EPUB/PDF и сценария: [SOURCE_PREPARATION.md](SOURCE_PREPARATION.md)
 - Подробный QC и проверенные пороги: [QUALITY_CONTROL.md](QUALITY_CONTROL.md)
 - Подготовка чисел, ударений и SSML для Silero с голосом Ксении: [SILERO_KSENIYA.md](SILERO_KSENIYA.md)
