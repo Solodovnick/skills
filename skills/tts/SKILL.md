@@ -114,4 +114,4 @@ Whisper не транскрибирует ударения. Автоматиче
 - Пример словаря произношений: [pronunciation-overrides.example.json](pronunciation-overrides.example.json)
 - Проверка готовых файлов: `scripts/validate_audio.sh <каталог-с-mp3>`
 - Устойчивость длинного запуска, восстановление очереди и macOS/MLX-диагностика: [RESILIENCE.md](RESILIENCE.md)
-- Предстартовая локальная проверка: `scripts/preflight_local.py --engine silero --tts-model <model.pt> --asr-model <dir> --require-metal`
+- Предстартовая локальная проверка: `<рабочий-python> scripts/preflight_local.py --engine silero --tts-model <model.pt> --asr-model <dir> --require-metal`
