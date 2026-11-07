@@ -28,6 +28,7 @@ description: Строит локальные русскоязычные ауди
 - TTS по умолчанию: `mlx-community/Qwen3-TTS-12Hz-1.7B-Base-8bit` через `mlx-audio`. Если нужен голос Ксении, используй отдельный маршрут [SILERO_KSENIYA.md](SILERO_KSENIYA.md).
 - Независимый ASR: `mlx-community/whisper-large-v3-turbo-8bit` через `mlx-whisper`.
 - Русские ударения: для Qwen3-TTS RuAccent служит аналитическим слоем; для Silero после короткого A/B-теста допустимы явные `+` перед ударной гласной.
+- Для нормативной сверки текста по предоставленному PDF «Грамоты» используй [GRAMOTA_STRESS.md](GRAMOTA_STRESS.md) и `scripts/check_gramota_stress.py`: отсутствие словоформы в выборочном словаре не является ошибкой ударения.
 - Сборка и валидация: FFmpeg/FFprobe.
 - PDF: MarkItDown для извлечения, Poppler для визуального и структурного контроля.
 
@@ -106,6 +107,7 @@ Whisper не транскрибирует ударения. Автоматиче
 ## Дополнительные инструкции
 
 - Подготовка EPUB/PDF и сценария: [SOURCE_PREPARATION.md](SOURCE_PREPARATION.md)
+- Нормативная сверка книги по локальному орфоэпическому PDF «Грамоты»: [GRAMOTA_STRESS.md](GRAMOTA_STRESS.md)
 - Подробный QC и проверенные пороги: [QUALITY_CONTROL.md](QUALITY_CONTROL.md)
 - Подготовка чисел, ударений и SSML для Silero с голосом Ксении: [SILERO_KSENIYA.md](SILERO_KSENIYA.md)
 - Личная загрузка в Яндекс Музыку и совместимые копии: [YANDEX_MUSIC.md](YANDEX_MUSIC.md)
